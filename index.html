@@ -1,0 +1,548 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>🎃 MiBot | Halloween Edition</CHICAANIME>
+    <link href="https://fonts.googleapis.com/css2?family=Creepster&family=Poppins:wght@300;400;600;700&display=swap" rel="stylesheet">
+    <style>
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+            font-family: 'Poppins', sans-serif;
+        }
+
+        body {
+            background: #0a0608;
+            color: #fff;
+            overflow-x: hidden;
+            position: relative;
+        }
+
+        /* Fondo con niebla y gradientes naranja/morado */
+        .bg-gradient {
+            position: fixed;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            background: 
+                radial-gradient(circle at 15% 20%, #ff6b00 0%, transparent 35%),
+                radial-gradient(circle at 85% 80%, #8b5cf6 0%, transparent 40%),
+                radial-gradient(circle at 50% 50%, #ff8c00 0%, transparent 60%);
+            opacity: 0.13;
+            z-index: -2;
+            animation: fog 10s ease-in-out infinite;
+        }
+
+        @keyframes fog {
+            0%, 100% { opacity: 0.13; transform: scale(1); }
+            50% { opacity: 0.22; transform: scale(1.05); }
+        }
+
+        /* Emojis flotantes decorativos */
+        .floating-emojis {
+            position: fixed;
+            top: 0; left: 0;
+            width: 100%; height: 100%;
+            pointer-events: none;
+            z-index: -1;
+            overflow: hidden;
+        }
+
+        .floating-emojis span {
+            position: absolute;
+            font-size: 2rem;
+            opacity: 0.25;
+            animation: float 15s infinite ease-in-out;
+        }
+
+        .floating-emojis span:nth-child(1) { top: 10%; left: 5%; animation-delay: 0s; }
+        .floating-emojis span:nth-child(2) { top: 30%; left: 90%; animation-delay: 2s; }
+        .floating-emojis span:nth-child(3) { top: 60%; left: 8%; animation-delay: 4s; }
+        .floating-emojis span:nth-child(4) { top: 80%; left: 85%; animation-delay: 1s; }
+        .floating-emojis span:nth-child(5) { top: 45%; left: 50%; animation-delay: 3s; }
+        .floating-emojis span:nth-child(6) { top: 15%; left: 70%; animation-delay: 5s; }
+        .floating-emojis span:nth-child(7) { top: 70%; left: 40%; animation-delay: 6s; }
+
+        @keyframes float {
+            0%, 100% { transform: translateY(0) rotate(-5deg); }
+            50% { transform: translateY(-40px) rotate(5deg); }
+        }
+
+        /* Navbar */
+        nav {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            padding: 20px 8%;
+            position: sticky;
+            top: 0;
+            background: rgba(10, 6, 8, 0.85);
+            backdrop-filter: blur(12px);
+            z-index: 100;
+            border-bottom: 1px solid rgba(255, 107, 0, 0.2);
+        }
+
+        .logo {
+            font-size: 1.5rem;
+            font-weight: 700;
+            display: flex;
+            align-items: center;
+            gap: 10px;
+        }
+
+        .logo span {
+            background: linear-gradient(90deg, #ff8c00, #ff4500);
+            -webkit-background-clip: text;
+            -webkit-text-fill-color: transparent;
+        }
+
+        nav ul {
+            display: flex;
+            list-style: none;
+            gap: 30px;
+        }
+
+        nav a {
+            color: #e6d5c3;
+            text-decoration: none;
+            font-weight: 400;
+            transition: color 0.3s, text-shadow 0.3s;
+        }
+
+        nav a:hover {
+            color: #ff8c00;
+            text-shadow: 0 0 10px #ff6b00;
+        }
+
+        /* Hero */
+        .hero {
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            justify-content: center;
+            text-align: center;
+            padding: 90px 20px 60px;
+            position: relative;
+        }
+
+        .hero h1 {
+            font-size: 3.5rem;
+            font-weight: 700;
+            margin-bottom: 20px;
+            line-height: 1.2;
+        }
+
+        .hero h1 span {
+            background: linear-gradient(90deg, #ff8c00, #ff4500, #8b5cf6);
+            -webkit-background-clip: text;
+            -webkit-text-fill-color: transparent;
+            text-shadow: 0 0 40px rgba(255, 107, 0, 0.5);
+        }
+
+        .hero p {
+            font-size: 1.15rem;
+            color: #d1c4b8;
+            max-width: 620px;
+            margin-bottom: 40px;
+        }
+
+        .buttons {
+            display: flex;
+            gap: 15px;
+            flex-wrap: wrap;
+            justify-content: center;
+        }
+
+        .btn {
+            padding: 14px 32px;
+            border-radius: 12px;
+            font-size: 1rem;
+            font-weight: 600;
+            text-decoration: none;
+            cursor: pointer;
+            border: none;
+            transition: all 0.3s;
+            display: inline-flex;
+            align-items: center;
+            gap: 8px;
+        }
+
+        .btn-primary {
+            background: linear-gradient(135deg, #ff6b00, #ff4500);
+            color: #fff;
+            box-shadow: 0 8px 25px rgba(255, 107, 0, 0.3);
+        }
+
+        .btn-primary:hover {
+            background: linear-gradient(135deg, #ff4500, #d32f00);
+            transform: translateY(-3px);
+            box-shadow: 0 15px 35px rgba(255, 107, 0, 0.5);
+        }
+
+        .btn-secondary {
+            background: transparent;
+            color: #ff8c00;
+            border: 2px solid #ff6b00;
+        }
+
+        .btn-secondary:hover {
+            background: rgba(255, 107, 0, 0.1);
+            transform: translateY(-3px);
+            box-shadow: 0 10px 25px rgba(255, 107, 0, 0.3);
+        }
+
+        /* Banner con imagen */
+        .banner {
+            max-width: 900px;
+            margin: 0 auto 40px;
+            padding: 0 20px;
+            text-align: center;
+        }
+
+        .banner img {
+            width: 100%;
+            max-width: 500px;
+            border-radius: 20px;
+            border: 3px solid rgba(255, 107, 0, 0.4);
+            box-shadow: 0 20px 60px rgba(255, 107, 0, 0.35);
+            transition: transform 0.4s;
+        }
+
+        .banner img:hover {
+            transform: scale(1.03) rotate(-1deg);
+        }
+
+        /* Stats */
+        .stats {
+            display: flex;
+            justify-content: center;
+            gap: 60px;
+            flex-wrap: wrap;
+            padding: 50px 20px;
+            background: rgba(255, 107, 0, 0.03);
+            border-top: 1px solid rgba(255, 107, 0, 0.15);
+            border-bottom: 1px solid rgba(255, 107, 0, 0.15);
+        }
+
+        .stat {
+            text-align: center;
+        }
+
+        .stat h3 {
+            font-size: 2.5rem;
+            background: linear-gradient(90deg, #ff8c00, #ff4500);
+            -webkit-background-clip: text;
+            -webkit-text-fill-color: transparent;
+            font-family: 'Creepster', cursive;
+            letter-spacing: 2px;
+        }
+
+        .stat p {
+            color: #a89b8c;
+            font-size: 0.95rem;
+        }
+
+        /* Features */
+        .features {
+            padding: 80px 8%;
+        }
+
+        .section-title {
+            text-align: center;
+            font-size: 2.4rem;
+            margin-bottom: 15px;
+            font-family: 'Creepster', cursive;
+            letter-spacing: 3px;
+            background: linear-gradient(90deg, #ff8c00, #8b5cf6);
+            -webkit-background-clip: text;
+            -webkit-text-fill-color: transparent;
+        }
+
+        .section-subtitle {
+            text-align: center;
+            color: #a89b8c;
+            margin-bottom: 60px;
+        }
+
+        .features-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(280px, 1fr));
+            gap: 25px;
+        }
+
+        .feature-card {
+            background: linear-gradient(180deg, #1a0f08 0%, #0f0805 100%);
+            border: 1px solid rgba(255, 107, 0, 0.25);
+            border-radius: 16px;
+            padding: 30px;
+            transition: all 0.3s;
+            position: relative;
+            overflow: hidden;
+        }
+
+        .feature-card::before {
+            content: '';
+            position: absolute;
+            top: -50%;
+            left: -50%;
+            width: 200%;
+            height: 200%;
+            background: radial-gradient(circle, rgba(255, 107, 0, 0.15) 0%, transparent 70%);
+            opacity: 0;
+            transition: opacity 0.4s;
+        }
+
+        .feature-card:hover::before {
+            opacity: 1;
+        }
+
+        .feature-card:hover {
+            transform: translateY(-5px);
+            border-color: #ff6b00;
+            box-shadow: 0 15px 40px rgba(255, 107, 0, 0.3);
+        }
+
+        .feature-icon {
+            width: 55px;
+            height: 55px;
+            background: linear-gradient(135deg, #ff6b00, #8b5cf6);
+            border-radius: 12px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            font-size: 1.6rem;
+            margin-bottom: 20px;
+            position: relative;
+            z-index: 1;
+        }
+
+        .feature-card h3 {
+            margin-bottom: 10px;
+            font-size: 1.2rem;
+            color: #ffb87a;
+            position: relative;
+            z-index: 1;
+        }
+
+        .feature-card p {
+            color: #a89b8c;
+            font-size: 0.95rem;
+            line-height: 1.6;
+            position: relative;
+            z-index: 1;
+        }
+
+        /* CTA */
+        .cta {
+            text-align: center;
+            padding: 80px 8%;
+        }
+
+        .cta-box {
+            background: linear-gradient(135deg, #ff6b00, #8b5cf6);
+            border-radius: 24px;
+            padding: 60px 30px;
+            max-width: 900px;
+            margin: 0 auto;
+            position: relative;
+            overflow: hidden;
+            box-shadow: 0 20px 60px rgba(255, 107, 0, 0.4);
+        }
+
+        .cta-box::before {
+            content: '🎃';
+            position: absolute;
+            font-size: 8rem;
+            opacity: 0.15;
+            top: -20px;
+            left: -20px;
+            transform: rotate(-15deg);
+        }
+
+        .cta-box::after {
+            content: '🦇';
+            position: absolute;
+            font-size: 6rem;
+            opacity: 0.15;
+            bottom: -10px;
+            right: 10px;
+            transform: rotate(15deg);
+        }
+
+        .cta-box h2 {
+            font-size: 2.2rem;
+            margin-bottom: 15px;
+            position: relative;
+            z-index: 1;
+        }
+
+        .cta-box p {
+            margin-bottom: 30px;
+            opacity: 0.95;
+            position: relative;
+            z-index: 1;
+        }
+
+        .cta-box .btn {
+            background: #fff;
+            color: #ff4500;
+            position: relative;
+            z-index: 1;
+        }
+
+        .cta-box .btn:hover {
+            transform: translateY(-3px);
+            box-shadow: 0 10px 30px rgba(0, 0, 0, 0.3);
+        }
+
+        /* Footer */
+        footer {
+            text-align: center;
+            padding: 40px 20px;
+            border-top: 1px solid rgba(255, 107, 0, 0.2);
+            color: #a89b8c;
+            font-size: 0.9rem;
+        }
+
+        footer a {
+            color: #ff8c00;
+            text-decoration: none;
+        }
+
+        /* Responsive */
+        @media (max-width: 768px) {
+            nav ul { display: none; }
+            .hero h1 { font-size: 2.2rem; }
+            .stats { gap: 30px; }
+            .stat h3 { font-size: 2rem; }
+            .section-title { font-size: 1.9rem; }
+        }
+    </style>
+</head>
+<body>
+    <div class="bg-gradient"></div>
+    
+    <!-- Emojis decorativos flotantes -->
+    <div class="floating-emojis">
+        <span>🎃</span>
+        <span>👻</span>
+        <span>🦇</span>
+        <span>🕷️</span>
+        <span>🕸️</span>
+        <span>💀</span>
+        <span>🐈‍⬛</span>
+    </div>
+
+    <!-- Navbar -->
+    <nav>
+        <div class="logo">
+            🎃 <span>MiBot</span>
+        </div>
+        <ul>
+            <li><a href="#features">Características</a></li>
+            <li><a href="#stats">Estadísticas</a></li>
+            <li><a href="#invite">Invitar</a></li>
+            <li><a href="https://discord.gg/YXyKg2NQE" target="_blank">Soporte</a></li>
+        </ul>
+    </nav>
+
+    <!-- Hero -->
+    <section class="hero">
+        <h1>El bot más <span>escalofriante</span><br>de tu Discord</h1>
+        <p>Moderación, música, economía, diversión y todos los sustos que tu servidor necesita. 🎃👻</p>
+        <div class="buttons">
+            <a href="https://discord.com/oauth2/authorize?client_id=1558677512114929734&permissions=8&scope=bot%20applications.commands" 
+               target="_blank" class="btn btn-primary">
+                ➕ Invitar al servidor
+            </a>
+            <a href="https://discord.gg/YXyKg2NQE" target="_blank" class="btn btn-secondary">
+                💬 Servidor de soporte
+            </a>
+        </div>
+    </section>
+
+    <!-- Banner con la imagen -->
+    <section class="banner">
+        <img src="halloween.png" alt="Halloween - MiBot">
+    </section>
+
+    <!-- Stats -->
+    <section class="stats" id="stats">
+        <div class="stat">
+            <h3>13K+</h3>
+            <p>Servidores embrujados</p>
+        </div>
+        <div class="stat">
+            <h3>666K+</h3>
+            <p>Almas registradas</p>
+        </div>
+        <div class="stat">
+            <h3>99.9%</h3>
+            <p>Uptime eterno</p>
+        </div>
+        <div class="stat">
+            <h3>13+</h3>
+            <p>Comandos terroríficos</p>
+        </div>
+    </section>
+
+    <!-- Features -->
+    <section class="features" id="features">
+        <h2 class="de todo un poco">Hechizos disponibles</h2>
+        <p class="economia, bienvenida etc">Herramientas monstruosas para tu comunidad</p>
+
+        <div class="features-grid">
+            <div class="feature-card">
+                <div class="feature-icon">🛡️</div>
+                <h3>Moderación</h3>
+                <p>Sanciones, filtros automáticos, anti-raid y registros para ahuyentar a los trolls.</p>
+            </div>
+            <div class="feature-card">
+                <div class="feature-icon">🎵</div>
+                <h3>Música</h3>
+                <p>Reproduce tus canciones favoritas de YouTube y Spotify, incluso las más espeluznantes.</p>
+            </div>
+            <div class="feature-card">
+                <div class="feature-icon">💰</div>
+                <h3>Economía</h3>
+                <p>Trabaja en la cripta, apuesta calabazas y sube en el ranking de las almas ricas.</p>
+            </div>
+            <div class="feature-card">
+                <div class="feature-icon">🎮</div>
+                <h3>Diversión</h3>
+                <p>Minijuegos embrujados, memes, imágenes interactivas y comandos terroríficos.</p>
+            </div>
+            <div class="feature-card">
+                <div class="feature-icon">⚙️</div>
+                <h3>Configuración</h3>
+                <p>Panel de setup personalizable para adaptar cada hechizo a tu servidor.</p>
+            </div>
+            <div class="feature-card">
+                <div class="feature-icon">⚡</div>
+                <h3>Rendimiento</h3>
+                <p>Servidores dedicados con 99.9% de uptime, sin lag ni fantasmas.</p>
+            </div>
+        </div>
+    </section>
+
+    <!-- CTA -->
+    <section class="cta" id="invite">
+        <div class="cta-box">
+            <h2>¿Te atreves a probarlo?</h2>
+            <p>Únete a miles de servidores que ya viven en el lado oscuro de Discord</p>
+            <a href="https://discord.com/oauth2/authorize?client_id=1351006361269436570&scope=bot&permissions=8" 
+               target="_blank" class="btn">
+                🎃 Añadir a Discord
+            </a>
+        </div>
+    </section>
+
+    <!-- Footer -->
+    <footer>
+        <p>© 2025 MiBot — Hecho con ❤️ y 🎃 por <a href="xsxalol">Tu Nombre</a></p>
+    </footer>
+</body>
+</html>
